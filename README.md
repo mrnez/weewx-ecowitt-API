@@ -24,41 +24,41 @@ cycle.
 
 
 ## Prerequisites
--Ecowitt weather station
--Ecowitt GW1000/2000 gateway, OR
--Ecowitt display, e.g. HP2560_C, HP2561, etc
--Weather station registered with ecowitt.net (account required)
+-Ecowitt weather station  
+-Ecowitt GW1000/2000 gateway, OR  
+-Ecowitt display, e.g. HP2560_C, HP2561, etc  
+-Weather station registered with ecowitt.net (account required)  
 
 
 ## References
-Ecowitt.net API: https://doc.ecowitt.net/web/#/apiv3en?page_id=17
-Ecowitt.net App and API key: https://www.ecowitt.net/home/user
-Ecotwitt.net device MAC: https://www.ecowitt.net/home/manage
+Ecowitt.net API: https://doc.ecowitt.net/web/#/apiv3en?page_id=17  
+Ecowitt.net App and API key: https://www.ecowitt.net/home/user  
+Ecotwitt.net device MAC: https://www.ecowitt.net/home/manage  
 
 
 ## How It Works
-Configuration
+Configuration  
 You provide your Ecowitt API credentials (application_key, api_key, mac) and choose a unit system 
-(US or METRICWX).
-A label_map defines how Ecowitt keys (e.g., pressure.relative) map to WeeWX fields (e.g., barometer).
+(US or METRICWX).  
+A label_map defines how Ecowitt keys (e.g., pressure.relative) map to WeeWX fields (e.g., barometer).  
 
-Data Fetching
-At each archive interval, the service calls Ecowitt’s API for real-time data.
-The JSON payload is validated for structure and status before processing.
+Data Fetching  
+At each archive interval, the service calls Ecowitt’s API for real-time data.  
+The JSON payload is validated for structure and status before processing.  
 
-Data Processing
-Nested measurements are flattened into simple keys.
-Pressure values are converted from inHg to mbar/hPa for consistency.
-Non-numeric values are skipped (or ignored silently if configured).
+Data Processing  
+Nested measurements are flattened into simple keys.  
+Pressure values are converted from inHg to mbar/hPa for consistency.  
+Non-numeric values are skipped (or ignored silently if configured).  
 
-Integration
-The processed data is merged into the current archive record.
-WeeWX’s unit conversion ensures values match your chosen unit system.
+Integration  
+The processed data is merged into the current archive record.  
+WeeWX’s unit conversion ensures values match your chosen unit system.  
 
-Logging & Safety
-Operational logs summarize updates (processed/skipped counts, key metrics).
-No API keys, MAC address, or full URLs are ever logged.
-Validation guards prevent crashes from malformed payloads.
+Logging & Safety  
+Operational logs summarize updates (processed/skipped counts, key metrics).  
+No API keys, MAC address, or full URLs are ever logged.  
+Validation guards prevent crashes from malformed payloads.  
 
 
 ## Installation
