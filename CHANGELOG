@@ -1,0 +1,77 @@
+
+# Changelog
+
+## [0.6.1] - 2025-11-22
+### Added
+- **Validation guards** in `ecowitt_api.py`:
+  - JSON parsing validation with clear error logging (no payload dump).
+  - API `code`/`msg` checks; non-zero `code` aborts the update cleanly.
+  - Structural validation for the presence and type of `data` (must be a dict).
+- **Config sanity checks** (privacy-safe):
+  - Require `application_key`, `api_key`, and `mac`; raise a friendly `ValueError` identifying missing keys.
+- **Operational logging (privacy-safe)**:
+  - Status-only messages at `INFO`: service init with version & unit system, fetch start, and per-interval summary (`processed`, `skipped`, `barometer`, `pressure`).
+  - HTTP/URL error handling with concise messages and no sensitive data.
+- **Default pressure mappings** in installer:
+  - `pressure.relative → barometer` (sea-level adjusted)
+  - `pressure.absolute → pressure` (station pressure)
+
+### Changed
+- **Version bump** to `0.6.1` in both `install.py` and `ecowitt_api.py`.
+- README updated with version, author, and notes about payload flattening and pressure conversion.
+
+### Fixed
+- Improved robustness against malformed or unexpected payloads to avoid runtime errors.
+
+### Security
+- **Privacy-safe logging**:
+  - No logging of `application_key`, `api_key`, `mac`, or full request URL.
+  - Exceptions reported without sensitive details.
+
+---
+
+## [0.6.0] - 2025-11-21
+### Added
+- Initial public packaging of the EcowittAPI WeeWX extension:
+  - **Installer (`setup.ExtensionInstaller`)** that defines:
+    - `[EcowittAPI]` config section with defaults.
+    - `[Engine][[Services]]` `data_services = user.ecowitt_api.EcowittAPI` (WeeWX merges/appends automatically).
+  - **Nested payload handling**:
+    - Flatten Ecowitt’s JSON structure (e.g., `pressure.relative`) to simple keys via helper.
+  - **Pressure unit conversion**:
+    - Convert inHg ➜ mbar/hPa for WeeWX consistency.
+  - **Default `label_map`** entries:
+    - `tempin → inTemp`, `humidityin → inHumidity`, `temp → outTemp`, `humidity → outHumidity`.
+  - **README** with install/config snippets and guidance.
+
+### Changed
+- Service loop updated to map flattened keys using `label_map` and integrate into archive records via `weewx.units.to_std_system()`.
+- Robust handling of non-numeric values using `ignore_value_error`.
+
+### Fixed
+- Installer config formatting to avoid writing comments as key/value pairs.
+- Avoid appending logic conflicts: define service line only; let WeeWX handle merging.
+
+### Security
+- Reduced logging verbosity; removed URL and secrets from routine logs (initial pass).
+
+---
+
+## [0.5.x] - 2025-11 (Internal development)
+### Added
+- Prototype of the EcowittAPI service (`StdService`) with initial fetch, parse, and update of archive records.
+- Early installer drafts and README snippets for local testing.
+
+### Changed
+- Iterative improvements to config formatting and service registration.
+
+### Fixed
+- Early issues with comment handling in installer-generated config.
+
+---
+
+## Notes
+- **Unit systems**: The service normalizes values using WeeWX’s conversion pipeline. Choose `US` or `METRICWX` in `[EcowittAPI]` to match your archive/skins; pressure is normalized correctly in either case.
+- **Uninstall safety**: Custom `uninstall()` removes only the extension’s `data_services` token and `[EcowittAPI]` section—preserves `[Engine]`.
+
+---
