@@ -48,7 +48,7 @@ The JSON payload is validated for structure and status before processing.
 
 Data Processing  
 Nested measurements are flattened into simple keys.  
-Pressure values are converted from inHg to mbar/hPa for consistency.  
+Pressure values are converted to WeeWX's configured unit type (US, METRIC, METRICWX, in weewx.conf) for consistency.  
 Non-numeric values are skipped (or ignored silently if configured).  
 
 Integration  
