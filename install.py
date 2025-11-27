@@ -9,7 +9,7 @@ from setup import ExtensionInstaller
 class EcowittAPIInstaller(ExtensionInstaller):
     def __init__(self):
         super(EcowittAPIInstaller, self).__init__(
-            version='0.6.1',
+            version='0.7',
             name='ecowitt_api',
             description='WeeWX data service that fetches real-time observations from the Ecowitt Cloud API and writes them into WeeWX archive records.',
             author='Anthony Knezevic (aided by Copilot)',
