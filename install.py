@@ -24,12 +24,29 @@ class EcowittAPIInstaller(ExtensionInstaller):
                     'unit_system': 'METRICWX',
                     'ignore_value_error': 'False',
                     'label_map': {
-                        'tempin': 'inTemp',
-                        'humidityin': 'inHumidity',
-                        'temp': 'outTemp',
-                        'humidity': 'outHumidity',
-                        'pressure.relative': 'barometer',
-                        'pressure.absolute': 'pressure'
+                        'outdoor.temperature': 'outTemp,
+                        'indoor.temperature': 'inTemp',
+                        'outdoor.humidity': 'outHumidity',
+                        'indoor.humidity': 'inHumidity',
+                        'wind.wind_speed': 'windSpeed',
+                        'wind.wind_gust': 'windGust',
+                        'wind.wind_direction': 'windDir',
+                        'pressure.relative': 'altimeter',
+                        'pressure.absolute': 'barometer',
+                        'solar_and_uvi.solar': 'radiation',
+                        'solar_and_uvi.uvi': 'UV',
+                        'rainfall.rain_rate': 'rainRate',
+                        'rainfall.daily': 'dayRain',
+                        'rainfall.weekly': 'weekRain',
+                        'rainfall.monthly': 'monthRain',
+                        'rainfall.yearly': 'yearRain',
+                        'outdoor.dew_point': 'dewpoint',
+                        'outdoor.feels_like': 'feelsLike',
+                        'outdoor.app_temp': 'apparentTemp',
+                        'indoor.dew_point': 'inDewpoint',
+                        'indoor.feels_like': 'inFeelsLike',
+                        'indoor.app_tempin': 'inAppTemp',
+                        'battery.sensor_array': 'txBatteryStatus'
                     }
                 }
             }
