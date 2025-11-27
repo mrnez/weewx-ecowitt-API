@@ -1,6 +1,38 @@
 
 # Changelog
 
+##[0.7] - 2025-11-26
+### Added
+-**Integrated Unit Conversion Using WeeWX Framework**
+ -All Ecowitt sensor values are now normalized to the station’s configured unit system (METRICWX or US) using weewx.units.convert() and to_std_system().
+   Pressure, temperature, wind, rain, solar radiation, and humidity are converted automatically.
+-**Support for All Ecowitt Sensor Fields**
+ -Added dynamic handling for all fields returned by the Ecowitt API:
+  -Outdoor: temperature, feels_like, app_temp, dew_point, VPD, humidity
+  -Indoor: temperature, humidity, dew_point, feels_like, app_tempin
+  -Solar & UVI: solar radiation, UV index
+  -Rainfall: rain_rate, daily, event, 1_hour, weekly, monthly, yearly
+  -Wind: wind_speed, wind_gust, wind_direction, 10_minute_average_wind_direction
+  -Pressure: relative (SLP), absolute (station pressure)
+  -Battery: sensor_array status
+ -Mapping is configurable via label_map in weewx.conf.
+
+### Changed
+-Dynamic Mapping via Configuration
+ -Users can define label_map in weewx.conf to map Ecowitt keys to WeeWX observation names without modifying code.
+-QC-Safe Record Updates
+ -Ensures all values stored in event.record are plain floats (no ValueTuple leakage).
+-Enhanced Logging
+ -Added detailed debug and info logs for processed and skipped fields.
+-Comprehensive Code Documentation
+ -Added clear comments explaining:
+  -Service purpose
+  -Configuration handling
+  -API call logic
+  -Data flattening and mapping
+  -Unit conversion process
+  -Archive record update steps
+
 ## [0.6.1] - 2025-11-22
 ### Added
 - **Validation guards** in `ecowitt_api.py`:
