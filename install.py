@@ -9,7 +9,7 @@ from setup import ExtensionInstaller
 class EcowittAPIInstaller(ExtensionInstaller):
     def __init__(self):
         super(EcowittAPIInstaller, self).__init__(
-            version='0.7',
+            version='0.8',
             name='ecowitt_api',
             description='WeeWX data service that fetches real-time observations from the Ecowitt Cloud API and writes them into WeeWX archive records.',
             author='Anthony Knezevic (aided by Copilot)',
@@ -24,7 +24,7 @@ class EcowittAPIInstaller(ExtensionInstaller):
                     'unit_system': 'METRICWX',
                     'ignore_value_error': 'False',
                     'label_map': {
-                        'outdoor.temperature': 'outTemp,
+                        'outdoor.temperature': 'outTemp',
                         'indoor.temperature': 'inTemp',
                         'outdoor.humidity': 'outHumidity',
                         'indoor.humidity': 'inHumidity',
