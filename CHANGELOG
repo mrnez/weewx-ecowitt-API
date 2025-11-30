@@ -1,6 +1,29 @@
 
 # Changelog
 
+## v0.8 2025-11-29
+
+### Added
+-Full inline documentation for `ecowitt_api.py` including configuration examples and flow description.
+-Expanded pressure unit recognition: `hPa`/`hectopascal` → `mbar`, plus `kPa`, `Pa`, `mmHg`, and `inHg`.
+-Logging now outputs all observed values (`obs_values={...}`) instead of only `barometer` and `pressure`.
+
+### Changed
+-**Unit normalization strategy**:
+  -Non-pressure observations treated as **US source units** (Ecowitt default) and normalized using `weewx.units.to_std_system(..., target_unit_system)`.
+  -Pressure-family observations (`barometer`, `altimeter`, `pressure`) converted explicitly via `weewx.units.convert(value_tuple, target_pressure_unit)` to prevent double conversions and type errors.
+-Defensive parsing: skips invalid tokens (`None`, `""`, `"--"`, `"NA"`) and ensures numeric conversion via `float(str(raw).strip())`.
+
+### Fixed
+-Eliminated `unsupported operand type(s) for /: 'str' and 'float'` errors by removing ambiguous tuple handling in `to_std_system`.
+-Corrected temperature conversion (F → C) for stations using `METRICWX`.
+-Pressure values now fall within realistic ranges (e.g., ~880–1100 mbar or ~29–31 inHg).
+
+### Security
+-No sensitive data (API keys, MAC) logged in any output.
+-HTTP requests use `urllib` with timeout to avoid hanging connections.
+
+
 ##[0.7] - 2025-11-26
 ### Added
 -**Integrated Unit Conversion Using WeeWX Framework**
